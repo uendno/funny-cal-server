@@ -55,7 +55,8 @@ router.post('/login', function (req, res) {
 
                 return res.send({
                     success: true,
-                    data: token,
+                    data: _.omit(user.toString(), "password"),
+                    token: token
                 })
             }
         })
@@ -110,7 +111,8 @@ router.post('/register', function (req, res) {
 
             return res.send({
                 success: true,
-                data: token
+                data: _.omit(savedUser.toString(), "password"),
+                token: token
             })
         });
     })
