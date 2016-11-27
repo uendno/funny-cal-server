@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
         return res.send({
             success: true,
             data: _.map(users, function (user) {
-                return _.omit(user, ['password']);
+                return _.omit(user.toObject(), 'password');
             })
         })
     });
