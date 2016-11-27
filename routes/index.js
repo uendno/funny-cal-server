@@ -63,7 +63,7 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/register', function (req, res) {
-    if (req.body.username == null || req.body.password == null) {
+    if (req.body.username == null || req.body.password == null || req.body.full_name == null) {
         return res.send({
             success: false,
             message: "Null username or password."
@@ -91,7 +91,8 @@ router.post('/register', function (req, res) {
 
         var newUser = User({
             username: req.body.username,
-            password: req.body.password
+            password: req.body.password,
+            fullName: req.body.full_name
         });
 
         newUser.save(function (error, savedUser) {
@@ -109,7 +110,7 @@ router.post('/register', function (req, res) {
 
             return res.send({
                 success: true,
-                data: token,
+                data: token
             })
         });
     })
