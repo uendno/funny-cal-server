@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 var User = require('../models/User');
 var util = require('util');
+var _ = require('lodash');
+
 
 /* GET home page. */
 router.post('/login', function (req, res) {
@@ -55,7 +57,7 @@ router.post('/login', function (req, res) {
 
                 return res.send({
                     success: true,
-                    data: _.omit(user.toString(), "password"),
+                    data: _.omit(user.toObject(), "password"),
                     token: token
                 })
             }
@@ -109,9 +111,11 @@ router.post('/register', function (req, res) {
                 expiresIn: config.auth.EXP_TIME
             });
 
+            console.log(util.inspect(savedUser));
+
             return res.send({
                 success: true,
-                data: _.omit(savedUser.toString(), "password"),
+                data: _.omit(savedUser.toObject(), "password"),
                 token: token
             })
         });
